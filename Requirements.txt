@@ -1,2 +1,4 @@
-Pandas
-Graphviz
+streamlit
+pandas
+graphviz
+altair
