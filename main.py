@@ -1,5 +1,3 @@
-!pip install graphviz
-
 import streamlit as st
 import graphviz
 import altair as alt
