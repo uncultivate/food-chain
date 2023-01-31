@@ -1,6 +1,7 @@
 import streamlit as st
 import altair as alt
 import pandas as pd
+import graphviz
 
 tab1, tab2, tab3 = st.tabs(["Line Chart", "Food Web", "Info"])
 
@@ -186,9 +187,46 @@ with tab2:
         st.header(f'{add_radio} Food Web')
 
         if add_radio == 'Ocean':
-            st.image('ocean-web.png')
+            dot_lang =         '''
+            digraph {
+                rankdir="BT"
+                
+                fish -> {octopi dolphins sharks}
+                octopi -> {dolphins}
+                turtles -> sharks        
+                plankton -> {jellyfish fish krill}
+                seaweed -> {krill shellfish turtles}
+                rank = same;
+                shellfish -> {fish turtles octopi}       
+                krill -> {jellyfish fish}
+                jellyfish -> {turtles fish}
+                
+
+            }
+           
+        '''
         else:
-            st.image('aus-web.png')
+            dot_lang =  '''
+            digraph {
+                rankdir="BT"
+                
+                wattles -> {insects}
+                grasses -> {bilbies kangaroos }
+                
+                insects -> {snakes bilbies "cane toads"}   
+                     
+                bilbies -> {"feral cats" snakes dingoes}
+                
+                kangaroos -> {dingoes eagles}
+                
+                snakes -> {"feral cats"  eagles}     
+                rank = same;
+                
+
+            }
+           
+        '''
+        st.graphviz_chart(dot_lang)
             
 
         st.write('---')
