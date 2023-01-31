@@ -1,4 +1,4 @@
 altair==4.2.0
 
-graphviz @ file:///C:/Windows/TEMP/abs_7a4z36rraa/croots/recipe/python-graphviz_1660063185022/work
+graphviz
 
