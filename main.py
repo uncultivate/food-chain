@@ -1,4 +1,4 @@
-pip install graphviz
+!pip install graphviz
 
 import streamlit as st
 import graphviz
