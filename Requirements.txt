@@ -2,3 +2,4 @@ streamlit
 pandas
 altair
 graphviz
+dagre-d3
