@@ -1,7 +1,7 @@
 import streamlit as st
 import altair as alt
 import pandas as pd
-import pygraphviz as graphviz
+import pygraphviz
 
 tab1, tab2, tab3 = st.tabs(["Line Chart", "Food Web", "Info"])
 
