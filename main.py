@@ -2,6 +2,7 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 
+st. set_page_config (layout="wide")
 tab1, tab2, tab3 = st.tabs(["Line Chart", "Food Web", "Info"])
 
 with tab1:        
