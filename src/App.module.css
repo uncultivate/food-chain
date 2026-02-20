@@ -1,0 +1,115 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .app {
+    flex-direction: row;
+  }
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  position: relative;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 1rem 1.5rem 0;
+  border-bottom: 1px solid var(--border, #334155);
+  background: var(--bg, #0f172a);
+}
+
+.tab,
+.tabActive {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: transparent;
+  color: var(--muted, #94a3b8);
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+}
+
+.tab:hover {
+  color: var(--text, #e2e8f0);
+}
+
+.tabActive {
+  background: var(--card-bg, #1e293b);
+  color: var(--text, #e2e8f0);
+  border-bottom: 2px solid var(--accent, #0ea5e9);
+}
+
+.themeToggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted, #94a3b8);
+  cursor: pointer;
+}
+
+.themeLabel {
+  user-select: none;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  background: var(--bg, #0f172a);
+  position: relative;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocean background with overlay */
+.app[data-ecosystem="ocean"] .content {
+  background: #0f172a;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.2)),
+    url("/images/ocean.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+[data-theme="light"] .app[data-ecosystem="ocean"] .content {
+  background: #f0f9ff;
+  background-image:
+    linear-gradient(rgba(240, 249, 255, 0.7), rgba(240, 249, 255, 0.2)),
+    url("/images/ocean.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Australian native background with overlay */
+.app[data-ecosystem="ausNative"] .content {
+  background: #0f172a;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4)),
+    url("/images/australia_bush.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+[data-theme="light"] .app[data-ecosystem="ausNative"] .content {
+  background: #f0f9ff;
+  background-image:
+    linear-gradient(rgba(240, 249, 255, 0.5), rgba(240, 249, 255, 0.3)),
+    url("/images/australia_bush.jpg");
+  background-size: cover;
+  background-position: center;
+}

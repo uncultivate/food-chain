@@ -1,0 +1,212 @@
+.simulation {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .header h1 {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.controls button {
+  padding: 0.5rem 1rem;
+  background: var(--accent, #0ea5e9);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.controls button:hover:not(:disabled) {
+  background: var(--accent-hover, #38bdf8);
+}
+
+.controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.speed select {
+  padding: 0.35rem;
+  background: var(--input-bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  border-radius: 4px;
+  color: inherit;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.progress {
+  font-size: 0.9rem;
+  color: var(--muted, #94a3b8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .progress {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.successIndicator {
+  font-size: 0.9rem;
+  color: #22c55e;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .successIndicator {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.extinctIndicator {
+  font-size: 0.9rem;
+  color: #ef4444;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .extinctIndicator {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (min-width: 900px) {
+  .mainContent {
+    flex-direction: row;
+  }
+}
+
+.chart {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 350px;
+  max-height: 800px;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+:global([data-theme="light"]) .chart {
+  background: rgba(240, 249, 255, 0.85);
+  border-color: rgba(125, 211, 252, 0.6);
+}
+
+@media (min-width: 900px) {
+  .chart {
+    flex: 3 1 0;
+    min-height: 400px;
+  }
+}
+
+.pyramidContainer {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+}
+
+:global([data-theme="light"]) .pyramidContainer {
+  background: rgba(240, 249, 255, 0.85);
+  border-color: rgba(125, 211, 252, 0.6);
+}
+
+.populations h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .populations h3 {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.popGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.popItem {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--card-bg, #0f172a);
+  border-radius: 6px;
+  border: 1px solid var(--border, #334155);
+}
+
+.popName {
+  color: var(--muted, #94a3b8);
+}
+
+.popVal {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.trend {
+  font-size: 0.9rem;
+}
+
+.popItem[data-trend="up"] .trend {
+  color: #22c55e;
+}
+
+.popItem[data-trend="down"] .trend {
+  color: #ef4444;
+}
+
+.popItem[data-trend="stable"] .trend {
+  color: var(--text-muted, #94a3b8);
+}

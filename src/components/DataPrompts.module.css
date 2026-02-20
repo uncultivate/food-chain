@@ -1,0 +1,54 @@
+.prompts {
+  margin-top: 1rem;
+  border: 1px solid var(--border, #334155);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card-bg, #1e293b);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chevron {
+  font-size: 0.7rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.list {
+  margin: 0;
+  padding: 0 1rem 1rem 1.5rem;
+  list-style: none;
+}
+
+.list li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted, #94a3b8);
+  line-height: 1.4;
+}
+
+.list li::before {
+  content: '?';
+  position: absolute;
+  left: 0;
+  color: var(--accent, #0ea5e9);
+  font-weight: 600;
+}

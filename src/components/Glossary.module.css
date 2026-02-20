@@ -1,0 +1,31 @@
+.glossary {
+  position: relative;
+  display: inline;
+}
+
+.term {
+  border-bottom: 1px dashed var(--accent, #0ea5e9);
+  cursor: help;
+  color: var(--accent, #0ea5e9);
+}
+
+.term:hover {
+  color: var(--accent-hover, #38bdf8);
+}
+
+.definition {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  background: var(--card-bg, #1e293b);
+  border: 1px solid var(--border, #334155);
+  border-radius: 6px;
+  color: var(--text, #e2e8f0);
+  white-space: normal;
+  max-width: 280px;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,166 @@
+.pyramid {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pyramid::-webkit-scrollbar {
+  display: none;
+}
+
+.tiers {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tierHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tierLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .tierLabel {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.tierDesc {
+  font-size: 0.85rem;
+  color: var(--text-muted, #94a3b8);
+  text-align: center;
+  max-width: 180px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:global([data-theme="light"]) .tierDesc {
+  text-shadow: 0 0 2px white, 0 0 4px white, 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+}
+
+.tierCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--card-bg, #1e293b);
+  border-radius: 12px;
+  border: 2px solid var(--border, #334155);
+  min-width: 110px;
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: var(--accent, #0ea5e9);
+}
+
+.cardSelected {
+  border-color: var(--accent, #0ea5e9);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3);
+}
+
+.cardTooltip {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  border-radius: 6px;
+  color: var(--text, #e2e8f0);
+  white-space: normal;
+  max-width: 180px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cardTooltip div {
+  margin: 0.2rem 0;
+}
+
+.trendUp {
+  color: #22c55e;
+  margin-left: 0.2rem;
+}
+
+.trendDown {
+  color: #ef4444;
+  margin-left: 0.2rem;
+}
+
+.trendStable {
+  color: var(--text-muted, #94a3b8);
+  margin-left: 0.2rem;
+}
+
+.cardImage {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--input-bg, #0f172a);
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent, #0ea5e9);
+}
+
+.cardName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.35rem;
+}
+
+.cardPop {
+  font-size: 0.85rem;
+  color: var(--muted, #94a3b8);
+  margin-top: 0.2rem;
+}
+
+.arrow {
+  font-size: 1.5rem;
+  color: var(--accent, #0ea5e9);
+  line-height: 1;
+}

@@ -1,0 +1,164 @@
+.sidebar {
+  width: 100%;
+  padding: 1.5rem;
+  background: var(--sidebar-bg, #1a2332);
+  color: var(--sidebar-text, #e2e8f0);
+  overflow-y: auto;
+  border-bottom: 1px solid var(--border, #334155);
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 280px;
+    min-width: 280px;
+    border-bottom: none;
+  }
+}
+
+.sidebar h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--sidebar-text, inherit);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.presetBtn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  background: var(--card-bg, #1e293b);
+  border: 1px solid var(--border, #334155);
+  border-radius: 6px;
+  color: var(--sidebar-text, inherit);
+  cursor: pointer;
+}
+
+.presetBtn:hover {
+  background: var(--accent, #0ea5e9);
+  border-color: var(--accent, #0ea5e9);
+  color: white;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: var(--sidebar-muted, var(--text-muted, #94a3b8));
+}
+
+.radioGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  color: var(--sidebar-text, inherit);
+}
+
+.checkboxList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--sidebar-text, inherit);
+}
+
+.invaderLabel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--sidebar-text, inherit);
+}
+
+.helpIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 0.75rem;
+  border-radius: 50%;
+  background: var(--border, #334155);
+  color: var(--sidebar-muted, var(--text-muted, #94a3b8));
+  cursor: help;
+}
+
+.helpIcon:hover {
+  background: var(--accent, #0ea5e9);
+  color: white;
+}
+
+.invaderHint {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  background: var(--card-bg, #1e293b);
+  border: 1px solid var(--border, #334155);
+  border-radius: 6px;
+  color: var(--sidebar-text, var(--text, #e2e8f0));
+  white-space: normal;
+  max-width: 240px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox input[type="range"] {
+  width: 100%;
+}
+
+.field input[type="range"] {
+  width: 100%;
+}
+
+.field select {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--input-bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  border-radius: 6px;
+  color: var(--sidebar-text, inherit);
+}
+
+.resetBtn {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent, #0ea5e9);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.resetBtn:hover {
+  background: var(--accent-hover, #38bdf8);
+}
+
+.muted {
+  font-size: 0.85rem;
+  color: var(--sidebar-muted, var(--muted, #94a3b8));
+}
