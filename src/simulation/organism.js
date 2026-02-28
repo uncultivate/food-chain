@@ -1,35 +1,55 @@
 /**
  * Organism simulation logic - ported from Python Streamlit app
- * grow(): Producers grow toward 110 cap when population < 100
- * eat(): Proportional consumption from prey; starve (×0.8) if insufficient
- * die(): 5% population loss per tick
+ * Parameters are read from SIMULATION_CONFIG (defaults + per-trophic-level overrides)
+ * grow(): Producers grow toward a configurable cap
+ * eat(): Proportional consumption from prey with configurable starvation behavior
+ * die(): Configurable natural population loss per tick
  */
+import { SIMULATION_CONFIG } from './simulationConfig.js';
 
-export function createOrganism(id, name, preyIds, volume, population) {
+function resolveTrophicLevel(organism) {
+  if (Number.isFinite(organism.trophicLevel)) return organism.trophicLevel;
+  return !organism.preyIds || organism.preyIds.length === 0 ? 0 : 1;
+}
+
+function getLevelConfig(organism) {
+  const level = resolveTrophicLevel(organism);
+  const levelOverrides = SIMULATION_CONFIG.trophicLevels[level] ?? {};
   return {
-    id,
-    name,
-    preyIds,
-    volume: volume ?? null,
-    population,
-    populationOverTime: [],
-    time: [],
+    grow: {
+      ...SIMULATION_CONFIG.defaults.grow,
+      ...(levelOverrides.grow ?? {}),
+    },
+    eat: {
+      ...SIMULATION_CONFIG.defaults.eat,
+      ...(levelOverrides.eat ?? {}),
+    },
+    die: {
+      ...SIMULATION_CONFIG.defaults.die,
+      ...(levelOverrides.die ?? {}),
+    },
   };
 }
 
 export function grow(organism) {
-  if (organism.preyIds === null) {
+  const { grow: growConfig } = getLevelConfig(organism);
+  if (!organism.preyIds || organism.preyIds.length === 0) {
     // Producer
-    if (organism.population < 100) {
+    if (organism.population < growConfig.startThreshold) {
       organism.population =
         organism.population *
-        (1 + 0.5 * ((110 - organism.population) / 100));
+        (1 + growConfig.rate * ((growConfig.cap - organism.population) / growConfig.startThreshold));
     }
   }
 }
 
 export function eat(organism, organisms, organismMap) {
+  const { eat: eatConfig } = getLevelConfig(organism);
   if (!organism.preyIds) return;
+  const invaderMultiplier = organism.isInvader
+    ? (SIMULATION_CONFIG.invader?.consumptionFactorMultiplier ?? 2)
+    : 1;
+  const effectiveConsumptionFactor = eatConfig.consumptionFactor * invaderMultiplier;
 
   const preyObjs = organism.preyIds
     .map((pid) => organismMap[pid])
@@ -39,25 +59,24 @@ export function eat(organism, organisms, organismMap) {
 
   if (sumPrey === 0) return;
 
-  let totalEats = 0;
   for (const p of preyObjs) {
     const eats = Math.min(
-      (p.population / sumPrey) * (organism.volume / 10) * organism.population,
-      p.population / 5
+      (p.population / sumPrey) * effectiveConsumptionFactor * organism.population,
+      p.population / eatConfig.preyLossCapDivisor
     );
     organism.population += eats;
     p.population -= eats;
-    totalEats += eats;
   }
 
   // Starve if insufficient food
-  if (sumPrey < organism.volume * organism.population) {
-    organism.population *= 0.8;
+  if (sumPrey < eatConfig.starvationNeedPerPredator * organism.population) {
+    organism.population *= eatConfig.starvationPenaltyMultiplier;
   }
 }
 
 export function die(organism, iteration) {
-  organism.population = Math.max(organism.population * 0.95, 0);
+  const { die: dieConfig } = getLevelConfig(organism);
+  organism.population = Math.max(organism.population * dieConfig.naturalDeathMultiplier, 0);
   organism.time.push(iteration + 1);
   organism.populationOverTime.push(organism.population);
 }

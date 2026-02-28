@@ -158,6 +158,60 @@
   background: var(--accent-hover, #38bdf8);
 }
 
+.simulationControls {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border, #334155);
+}
+
+.controlsRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.playBtn,
+.pauseBtn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  background: var(--accent, #0ea5e9);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.playBtn:hover:not(:disabled),
+.pauseBtn:hover:not(:disabled) {
+  background: var(--accent-hover, #38bdf8);
+}
+
+.playBtn:disabled,
+.pauseBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pauseBtn {
+  background: var(--card-bg, #1e293b);
+  border: 1px solid var(--border, #334155);
+  color: var(--sidebar-text, #e2e8f0);
+}
+
+.pauseBtn:hover:not(:disabled) {
+  background: var(--border, #334155);
+}
+
+.speedSelect {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--input-bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  border-radius: 6px;
+  color: var(--sidebar-text, inherit);
+}
+
 .muted {
   font-size: 0.85rem;
   color: var(--sidebar-muted, var(--muted, #94a3b8));

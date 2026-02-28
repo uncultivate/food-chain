@@ -29,15 +29,20 @@ export function Sidebar() {
     ecosystem,
     selectedSpecies,
     maxTicks,
+    isPlaying,
+    speed,
     invaderEnabled,
     invaderSpecies,
     invaderPopulation,
     setEcosystem,
     setSelectedSpecies,
     setMaxTicks,
+    setSpeed,
     setInvaderEnabled,
     setInvaderSpecies,
     setInvaderPopulation,
+    play,
+    pause,
     reset,
   } = useSimulationStore();
 
@@ -203,6 +208,42 @@ export function Sidebar() {
           </div>
         </>
       )}
+
+      <div className={`${styles.field} ${styles.simulationControls}`}>
+        <label>Run simulation</label>
+        <div className={styles.controlsRow}>
+          <button
+            onClick={play}
+            disabled={isPlaying}
+            className={styles.playBtn}
+            aria-label="Play simulation"
+          >
+            Play
+          </button>
+          <button
+            onClick={pause}
+            disabled={!isPlaying}
+            className={styles.pauseBtn}
+            aria-label="Pause simulation"
+          >
+            Pause
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.field}>
+        <label>Speed</label>
+        <select
+          className={styles.speedSelect}
+          value={String(speed)}
+          onChange={(e) => setSpeed(Number(e.target.value))}
+        >
+          <option value="0.5">0.5x</option>
+          <option value="1">1x</option>
+          <option value="2">2x</option>
+          <option value="5">5x</option>
+        </select>
+      </div>
 
       <button className={styles.resetBtn} onClick={reset}>
         Start Over

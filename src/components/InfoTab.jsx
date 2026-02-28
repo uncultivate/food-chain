@@ -24,25 +24,25 @@ function Section({ title, icon, children, defaultOpen = true }) {
 function FoodChainDiagram() {
   return (
     <div className={styles.diagram} aria-hidden="true">
-      <svg viewBox="0 0 280 120" className={styles.diagramSvg}>
+      <svg viewBox="0 0 320 120" className={styles.diagramSvg}>
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
             <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent)" />
           </marker>
         </defs>
-        <rect x="20" y="40" width="60" height="40" rx="6" className={styles.diagramBox} />
-        <text x="50" y="65" textAnchor="middle" className={styles.diagramText}>Sun + Plants</text>
-        <text x="50" y="78" textAnchor="middle" className={styles.diagramLabel}>Producers</text>
+        <rect x="10" y="35" width="80" height="50" rx="8" className={styles.diagramBox} />
+        <text x="50" y="58" textAnchor="middle" className={styles.diagramText}>Sun + Plants</text>
+        <text x="50" y="75" textAnchor="middle" className={styles.diagramLabel}>Producers</text>
 
-        <line x1="90" y1="60" x2="120" y2="60" stroke="var(--accent)" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <rect x="130" y="40" width="60" height="40" rx="6" className={styles.diagramBox} />
-        <text x="160" y="65" textAnchor="middle" className={styles.diagramText}>Herbivores</text>
-        <text x="160" y="78" textAnchor="middle" className={styles.diagramLabel}>Primary Consumers</text>
+        <line x1="95" y1="60" x2="115" y2="60" stroke="var(--accent)" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <rect x="120" y="35" width="80" height="50" rx="8" className={styles.diagramBox} />
+        <text x="160" y="58" textAnchor="middle" className={styles.diagramText}>Herbivores</text>
+        <text x="160" y="75" textAnchor="middle" className={styles.diagramLabel}>Primary Consumers</text>
 
-        <line x1="200" y1="60" x2="230" y2="60" stroke="var(--accent)" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <rect x="230" y="40" width="50" height="40" rx="6" className={styles.diagramBox} />
-        <text x="255" y="65" textAnchor="middle" className={styles.diagramText}>Predators</text>
-        <text x="255" y="78" textAnchor="middle" className={styles.diagramLabel}>Apex</text>
+        <line x1="205" y1="60" x2="225" y2="60" stroke="var(--accent)" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <rect x="230" y="35" width="80" height="50" rx="8" className={styles.diagramBox} />
+        <text x="270" y="58" textAnchor="middle" className={styles.diagramText}>Predators</text>
+        <text x="270" y="75" textAnchor="middle" className={styles.diagramLabel}>Apex</text>
       </svg>
     </div>
   );

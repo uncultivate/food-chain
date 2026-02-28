@@ -29,7 +29,7 @@ function getTrophicLevel(org, defMap, visited = new Set()) {
 export function TrophicPyramid() {
   const [imgErrors, setImgErrors] = useState({});
   const [selectedCard, setSelectedCard] = useState(null);
-  const { ecosystem, selectedSpecies, organismMap } = useSimulationStore();
+  const { ecosystem, selectedSpecies, organismMap, simulationState } = useSimulationStore();
   const getPopulationTrends = useSimulationStore((s) => s.getPopulationTrends);
   const trends = getPopulationTrends();
 
@@ -37,17 +37,33 @@ export function TrophicPyramid() {
     const eco = ECOSYSTEMS[ecosystem];
     const defMap = Object.fromEntries(eco.organisms.map((o) => [o.id, o]));
     const selected = eco.organisms.filter((o) => selectedSpecies.includes(o.id));
+
+    // Add invasive species if present in simulation
+    const invader = simulationState?.invader?.organism;
+    if (invader && !defMap[invader.id]) {
+      defMap[invader.id] = invader;
+    }
+
     const byLevel = {};
     for (const org of selected) {
-      const level = getTrophicLevel(org, defMap);
+      // Apex predators always go to level 4 (Apex Predators tier)
+      const level = org.apexPredator ? 4 : getTrophicLevel(org, defMap);
       if (!byLevel[level]) byLevel[level] = [];
       byLevel[level].push(org);
     }
+
+    // Add invader to appropriate tier if present
+    if (invader) {
+      const invaderLevel = invader.apexPredator ? 4 : getTrophicLevel(invader, defMap);
+      if (!byLevel[invaderLevel]) byLevel[invaderLevel] = [];
+      byLevel[invaderLevel].push({ ...invader, isInvader: true });
+    }
+
     const tiers = Object.entries(byLevel)
       .sort(([a], [b]) => Number(a) - Number(b))
       .map(([level, orgs]) => ({ level: Number(level), orgs }));
     return { tiers, defMap };
-  }, [ecosystem, selectedSpecies]);
+  }, [ecosystem, selectedSpecies, simulationState]);
 
   const handleImgError = (id) => {
     setImgErrors((prev) => ({ ...prev, [id]: true }));
@@ -82,13 +98,14 @@ export function TrophicPyramid() {
                   return (
                     <div
                       key={org.id}
-                      className={`${styles.card} ${isSelected ? styles.cardSelected : ''}`}
+                      className={`${styles.card} ${isSelected ? styles.cardSelected : ''} ${org.isInvader ? styles.invaderCard : ''}`}
                       data-trend={trend}
                       onClick={() => setSelectedCard(isSelected ? null : org.id)}
                       onKeyDown={(e) => e.key === 'Enter' && setSelectedCard(isSelected ? null : org.id)}
                       role="button"
                       tabIndex={0}
                     >
+                      {org.isInvader && <div className={styles.invaderBadge}>INVADER</div>}
                       <div className={styles.cardImage}>
                         {showImg ? (
                           <img

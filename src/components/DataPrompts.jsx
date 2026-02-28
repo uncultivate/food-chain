@@ -13,7 +13,6 @@ const PROMPTS = [
 export function DataPrompts() {
   const [open, setOpen] = useState(false);
   const currentTick = useSimulationStore((s) => s.currentTick);
-  const maxTicks = useSimulationStore((s) => s.maxTicks);
   const hasRun = currentTick > 0;
 
   if (!hasRun) return null;

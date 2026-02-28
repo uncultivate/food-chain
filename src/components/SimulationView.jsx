@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useSimulationStore } from '../store/simulationStore';
-import { PopulationChart } from './PopulationChart';
+import { PopulationChart, CHART_COLORS } from './PopulationChart';
 import { TrophicPyramid } from './TrophicPyramid';
 import { DataPrompts } from './DataPrompts';
 import { ECOSYSTEMS } from '../simulation/ecosystems';
@@ -14,11 +14,9 @@ export function SimulationView() {
     isPlaying,
     speed,
     runOneTick,
-    play,
-    pause,
-    reset,
     getCurrentPopulations,
     getPopulationTrends,
+    getChartData,
   } = useSimulationStore();
 
   const intervalRef = useRef(null);
@@ -42,34 +40,13 @@ export function SimulationView() {
   const populations = getCurrentPopulations();
   const trends = getPopulationTrends();
   const eco = ECOSYSTEMS[ecosystem];
+  const chartData = getChartData();
+  const seriesKeys = chartData.length > 0 ? Object.keys(chartData[0]).filter((k) => k !== 'time') : [];
 
   return (
     <div className={styles.simulation}>
       <div className={styles.header}>
         <h1>{eco.name} Food Web Simulation</h1>
-        <div className={styles.headerRight}>
-          <div className={styles.controls}>
-          <button onClick={play} disabled={isPlaying} aria-label="Play simulation">
-            Play
-          </button>
-          <button onClick={pause} disabled={!isPlaying} aria-label="Pause simulation">
-            Pause
-          </button>
-          <button onClick={reset}>Start Over</button>
-          <span className={styles.speed}>
-            Speed:{' '}
-            <select
-              value={String(speed)}
-              onChange={(e) => useSimulationStore.setState({ speed: Number(e.target.value) })}
-            >
-              <option value="0.5">0.5x</option>
-              <option value="1">1x</option>
-              <option value="2">2x</option>
-              <option value="5">5x</option>
-            </select>
-          </span>
-        </div>
-        </div>
       </div>
 
       <div className={styles.progressRow}>
@@ -92,30 +69,37 @@ export function SimulationView() {
       <div className={styles.mainContent}>
         <div className={styles.chart}>
           <PopulationChart />
+          <div className={styles.populations}>
+            <h3>Current Populations</h3>
+            <div className={styles.popGrid}>
+              {populations.map((p) => {
+                const trend = trends[p.id];
+                const seriesIndex = seriesKeys.indexOf(p.name);
+                const borderColor = seriesIndex >= 0 ? CHART_COLORS[seriesIndex % CHART_COLORS.length] : 'var(--border, #334155)';
+                
+                return (
+                  <div 
+                    key={p.id} 
+                    className={styles.popItem} 
+                    data-trend={trend}
+                    style={{ borderLeftColor: borderColor, borderLeftWidth: '4px' }}
+                  >
+                    <span className={styles.popName}>{p.name}</span>
+                    <span className={styles.popVal}>
+                      {p.population.toFixed(1)}
+                      {trend === 'up' && <span className={styles.trend} aria-label="increasing">↑</span>}
+                      {trend === 'down' && <span className={styles.trend} aria-label="decreasing">↓</span>}
+                      {trend === 'stable' && <span className={styles.trend} aria-label="stable">→</span>}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           <DataPrompts />
         </div>
         <div className={styles.pyramidContainer}>
           <TrophicPyramid />
-        </div>
-      </div>
-
-      <div className={styles.populations}>
-        <h3>Current Populations</h3>
-        <div className={styles.popGrid}>
-          {populations.map((p) => {
-            const trend = trends[p.id];
-            return (
-              <div key={p.id} className={styles.popItem} data-trend={trend}>
-                <span className={styles.popName}>{p.name}</span>
-                <span className={styles.popVal}>
-                  {p.population.toFixed(1)}
-                  {trend === 'up' && <span className={styles.trend} aria-label="increasing">↑</span>}
-                  {trend === 'down' && <span className={styles.trend} aria-label="decreasing">↓</span>}
-                  {trend === 'stable' && <span className={styles.trend} aria-label="stable">→</span>}
-                </span>
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

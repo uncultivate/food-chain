@@ -3,7 +3,7 @@
  * Ported from Python Streamlit app
  */
 
-import { createOrganism, grow, eat, die } from './organism.js';
+import { grow, eat, die } from './organism.js';
 
 function deepCloneOrganism(def) {
   return {
@@ -29,6 +29,7 @@ export function simulateOneTick(state, tick, totalTicks) {
   if (invader?.organism && tick === invaderEntryTick) {
     const invaderOrg = deepCloneOrganism(invader.organism);
     invaderOrg.population = invader.startPopulation ?? 5;
+    invaderOrg.isInvader = true;
     organisms.push(invaderOrg);
     organismMap[invaderOrg.id] = invaderOrg;
   }
@@ -73,7 +74,7 @@ export function initSimulation(ecosystem, selectedIds, invaderConfig) {
     const invDef = organismDefs.find((o) => o.id === invaderConfig.organismId);
     if (invDef) {
       invader = {
-        organism: { ...invDef },
+        organism: { ...invDef, isInvader: true },
         startPopulation: invaderConfig.startPopulation ?? 5,
       };
     }

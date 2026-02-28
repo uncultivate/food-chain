@@ -5,13 +5,12 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
 import { useSimulationStore } from '../store/simulationStore';
 import styles from './PopulationChart.module.css';
 
-const COLORS = [
+export const CHART_COLORS = [
   '#0ea5e9',
   '#22c55e',
   '#f59e0b',
@@ -23,8 +22,6 @@ const COLORS = [
 ];
 
 export function PopulationChart() {
-  const organisms = useSimulationStore((s) => s.organisms);
-  const currentTick = useSimulationStore((s) => s.currentTick);
   const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let data = [];
   let seriesKeys = [];
@@ -43,6 +40,13 @@ export function PopulationChart() {
     );
   }
 
+  const maxPopulation = data.reduce((max, point) => {
+    const pointMax = seriesKeys.reduce((seriesMax, key) => Math.max(seriesMax, Number(point[key]) || 0), 0);
+    return Math.max(max, pointMax);
+  }, 0);
+  const yMax = Math.max(10, Math.ceil(maxPopulation / 10) * 10);
+  const yTicks = Array.from({ length: yMax / 10 + 1 }, (_, i) => i * 10);
+
   return (
     <div className={styles.chartWrapper}>
       <p className={styles.caption}>
@@ -60,8 +64,10 @@ export function PopulationChart() {
               yAxisId="left"
               stroke="var(--text-muted, #94a3b8)"
               label={{ value: 'Population', angle: -90, position: 'insideLeft', fill: 'var(--text-muted)' }}
+              domain={[0, yMax]}
+              ticks={yTicks}
             />
-            <YAxis yAxisId="right" orientation="right" stroke="var(--text-muted, #94a3b8)" />
+            <YAxis yAxisId="right" orientation="right" stroke="var(--text-muted, #94a3b8)" domain={[0, yMax]} ticks={yTicks} />
         <Tooltip
           contentStyle={{
             background: 'var(--card-bg, #1e293b)',
@@ -71,14 +77,13 @@ export function PopulationChart() {
           labelStyle={{ color: 'var(--text, #e2e8f0)' }}
           formatter={(value, name) => [Math.round(Number(value) || 0), name]}
         />
-        <Legend />
         {seriesKeys.map((name, i) => (
           <Line
             key={name}
             type="monotone"
             dataKey={name}
             yAxisId="left"
-            stroke={COLORS[i % COLORS.length]}
+            stroke={CHART_COLORS[i % CHART_COLORS.length]}
             strokeWidth={2}
             dot={false}
             isAnimationActive={!reducedMotion}

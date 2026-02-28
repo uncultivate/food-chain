@@ -84,12 +84,38 @@
   box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3);
 }
 
+.invaderCard {
+  border-color: #ef4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, var(--card-bg, #1e293b) 100%);
+}
+
+.invaderCard:hover {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+.invaderBadge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #ef4444;
+  color: white;
+  border-radius: 4px;
+  z-index: 5;
+}
+
 .cardTooltip {
   position: absolute;
-  left: 50%;
-  bottom: 100%;
-  transform: translateX(-50%);
-  margin-bottom: 0.5rem;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.5rem;
   padding: 0.6rem 0.9rem;
   font-size: 0.85rem;
   background: var(--bg, #0f172a);

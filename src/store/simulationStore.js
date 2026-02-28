@@ -34,7 +34,7 @@ export const useSimulationStore = create((set, get) => ({
   setInvaderPopulation: (invaderPopulation) => set({ invaderPopulation }),
 
   reset: () => {
-    const { ecosystem, selectedSpecies, maxTicks, invaderEnabled, invaderSpecies, invaderPopulation } = get();
+    const { ecosystem, selectedSpecies, invaderEnabled, invaderSpecies, invaderPopulation } = get();
     const eco = ECOSYSTEMS[ecosystem];
     const invaderConfig = invaderEnabled && invaderSpecies
       ? {
